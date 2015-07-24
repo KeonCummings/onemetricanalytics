@@ -9,12 +9,28 @@ Devise.setup do |config|
   # config.secret_key = '4af581b35de2931e4222964c6196231980e87a3522b18fd4ecde94cec5961e477be58ed394213756a1be4f1ce815583b845bd3d071eafde3d8f6988e731c08fd'
 
   #providers
-  config.omniauth :facebook, '399575120226034', '64001edce7887cab6578136f0dae3e06'
-  config.omniauth :twitter, 'x', 'x'
-  config.omniauth :linkedin_oauth2, 'x', 'x'
-  config.omniauth :google_oauth2, 'x', 'x'
-
-
+  config.omniauth :facebook, '399575120226034', '64001edce7887cab6578136f0dae3e06',
+    :scope => 'email,manage_pages,read_stream,read_insights'
+  config.omniauth :twitter, TWITTER_KEY, TWITTER_SECRET,
+    {
+      :secure_image_url => 'true',
+      :image_size => 'original',
+      :authorize_params => {
+        :force_login => 'true',
+        :lang => 'en'
+      }
+    }
+  config.omniauth :linkedin, LINKEDIN_KEY, LINKEDIN_SECRET,
+      :scope => 'r_basicprofile r_emailaddress r_network rw_company_admin', 
+      :fields => ["id", "email-address", "first-name", "last-name", "headline", "industry", "picture-url", "public-profile-url", "location", "connections"]
+  config.omniauth :google_Oauth2, 'x', 'x',
+    {
+      :name => "google",
+      :scope => "email, profile, plus.me, http://gdata.youtube.com,analytics.readonly",
+      :prompt => "select_account",
+      :image_aspect_ratio => "square",
+      :image_size => 50
+    }
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,

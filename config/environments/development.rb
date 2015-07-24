@@ -3,6 +3,10 @@ Rails.application.configure do
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
+  TWITTER_KEY = 'DfVvFU2n6ENOclmJSc2hAzb2c'
+  TWITTER_SECRET = 'U8oEjwP5ehvw7WJ4FpHqzC7M3IV031cPsEI8X5LybOX80Yr0q4'
+  LINKEDIN_KEY = '771kyt1onjigoa'
+  LINKEDIN_SECRET = 'OEwgrxRL96forM7O'
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
