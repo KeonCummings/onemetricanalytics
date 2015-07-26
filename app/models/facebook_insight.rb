@@ -68,7 +68,7 @@ class FacebookInsight < ActiveRecord::Base
       score = 120
     elsif score == -Float::INFINITY
       score = -120
-    else score == Float::NAN
+    elsif score == Float::NAN
       score = 0
     end
   	score.to_i
