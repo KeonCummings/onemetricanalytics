@@ -5,6 +5,18 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+  get 'impressions/:id', to:  'facebook_insights#impressions', as: :impression
+  get 'engagements/:id', to:  'facebook_insights#engagements', as: :engagement
+  get 'viral/:id', to:  'facebook_insights#viral', as: :viral
+  get 'select', to: 'facebook_insights#pick_page'
+  resources :facebook_insights
+
+
+  # get 'insights' => 'insights#index'
+  # get 'impressions/:id', to:  'sessions#impressions', as: :impression
+  # get 'engagements/:id', to:  'sessions#engagements', as: :engagement
+  # get 'viral/:id', to:  'sessions#viral', as: :viral
+  # get 'select', to: 'sessions#pick_page'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

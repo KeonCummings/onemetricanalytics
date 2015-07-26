@@ -7,11 +7,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     create
   end
 
-  def google_oauth2
+  def google
     create
   end
 
-  def linkedin_oauth2
+  def linkedin
     create
   end
 

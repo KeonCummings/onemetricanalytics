@@ -1,0 +1,15 @@
+<script>
+  Morris.Line({
+    element: 'line',
+    data: [
+    <% metrics_history(params[:id], 'page_engaged_users', 60).each do |k,v|%>
+      { date: '<%= raw k%>' , value: <%= v %>},
+    <% end %>
+    ],
+    xkey: 'date',
+    ykeys: ['value'],
+    labels: ['Engagements'],
+    parseTime: false,
+    lineColors: ['#FF3D0D']
+  });
+</script>

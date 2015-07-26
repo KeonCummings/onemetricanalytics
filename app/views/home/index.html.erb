@@ -1,1 +1,4 @@
-   <%= link_to "Get Started", new_user_session_path, class: "btn btn-xl btn-social btn-lg btn-facebook" %>  
+   <%= link_to "Get Started", user_session_path, class: "btn btn-xl btn-social btn-lg btn-facebook" %>  
+      <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>  
+      <%= console %> 
+   

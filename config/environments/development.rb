@@ -7,6 +7,8 @@ Rails.application.configure do
   TWITTER_SECRET = 'U8oEjwP5ehvw7WJ4FpHqzC7M3IV031cPsEI8X5LybOX80Yr0q4'
   LINKEDIN_KEY = '771kyt1onjigoa'
   LINKEDIN_SECRET = 'OEwgrxRL96forM7O'
+  GOOGLE_KEY = '674438781023-ddrepf9shr0cn6dt5jb5srpmf9unvben.apps.googleusercontent.com'
+  GOOGLE_SECRET = 'How1XPnFdgGa1c-DgUPwG1Tg'
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 

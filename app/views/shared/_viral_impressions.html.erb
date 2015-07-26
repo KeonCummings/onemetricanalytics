@@ -1,0 +1,42 @@
+<script>
+  var g = new JustGage({
+    id: "week",
+    value: <%= score(params[:id], 'page_posts_impressions_viral', 7, 14) %>,
+    min: 0,
+    max: 120,
+    titleFontColor : 'black',
+    valueFontColor : '#EE7600',
+    levelColors : ['#CC3232', '#FFFF00', '#859C27', '#7FFF00'],
+    levelColorsGradient : false,
+    title: "Viral Impressions ",
+    label: "Last 7 Days"
+  });
+</script>
+<script>
+  var g = new JustGage({
+    id: "month",
+    value: <%= score(params[:id], 'page_posts_impressions_viral', 30, 60) %>,
+    min: 0,
+    max: 120,
+    titleFontColor : 'black',
+    valueFontColor : '#EE7600',
+    levelColors : ['#CC3232', '#FFFF00', '#859C27', '#7FFF00'],
+    levelColorsGradient : false,
+    title: "Viral Impressions ",
+    label: "Last Month"
+  });
+</script>
+<script>
+  var g = new JustGage({
+    id: "quarter",
+    value: <%= score(params[:id], 'page_posts_impressions_viral', 60, 120) %>,
+    min: 0,
+    max: 120,
+    titleFontColor : 'black',
+    valueFontColor : '#EE7600',
+    levelColors : ['#CC3232', '#FFFF00', '#859C27', '#7FFF00'],
+    levelColorsGradient : false,
+    title: "Viral Impressions ",
+    label: "Last Quarter"
+  });
+</script>

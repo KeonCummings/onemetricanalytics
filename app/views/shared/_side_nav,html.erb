@@ -1,0 +1,65 @@
+<!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Imagination Analytics</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+            	<div id="signin">
+				  <% if current_user %>
+				    Welcome <strong><%= current_user.email %></strong>!
+
+				    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+				  <% else %>
+				    <%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+				  <% end %>
+				</div>
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href=<%= impression_path(params[:id])%>><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-facebook fa-fw"></i> Facebook <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href= <%= impression_path(params[:id])%>>Impressions</a>
+                                </li>
+                                <li>
+                                    <a href= <%= engagement_path(params[:id])%>>Engagements</a>
+                                </li>
+                                <li>
+                                    <a href= <%= viral_path(params[:id])%>>Viral Impressions</a>
+                                </li>
+                                 <li>
+                                    <a href="morris.html">Comments</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Engagement Rate</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Content Score</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href=<%=select_path%>><i class="fa fa-table fa-fw"></i> Change Page</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>       

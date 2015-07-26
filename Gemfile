@@ -53,3 +53,9 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-linkedin-oauth2'
+
+#Use Koala to get facebook Insights
+gem "koala", "~> 2.0"
+
+#Font awesome rails
+gem "font-awesome-rails"

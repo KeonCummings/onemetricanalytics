@@ -1,0 +1,22 @@
+<script>
+    Morris.Line({
+      element: 'line',
+      data: [
+      <% @metrics = combine_hash(metrics_history(params[:id], 'page_posts_impressions', 60),
+                                 metrics_history(params[:id], 'page_posts_impressions_viral', 60)) %>
+      <% @metrics.each do |k,v|%>
+        { date: '<%= raw k%>' , a: <%= v[0]%>, b:<%= v[1]%> },
+      <% end %>
+      ],
+      xkey: 'date',
+      ykeys: ['a', 'b'],
+      parseTime: false,
+      lineColors: ['#FF3D0D', '#78AB46'],
+      hoverCallback: function (index, options, content, row) {
+        var percentage = row.b/row.a * 100
+        return "viral impression average = " + percentage.toFixed(2) + "%"
+      },
+       labels: ['impressions', 'viral Impressions'],
+       resize: true
+    });
+  </script>

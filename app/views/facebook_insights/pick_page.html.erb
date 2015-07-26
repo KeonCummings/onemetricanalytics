@@ -1,0 +1,22 @@
+
+  <div class="col-xs-4 col-xs-offset-4">
+    <div class="container">
+    <div class="row">
+    	 <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Choose Account</h3>
+                </div>
+                <ul class="list-group">
+                    <% token = getAccessToken("facebook") %>
+                    <% pages =  FacebookInsight.get_pages(token)%>
+                	<% pages.each do |page| %>
+                		<%= link_to page['name'], impression_path(page['access_token']), class: "list-group-item" %>
+                    <%end%>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,4 @@
+<% token = getAccessToken("facebook") %>
+<% page_token =  FacebookInsight.get_pages(token).first['access_token']%>
+<%= score(page_token, 'page_engaged_users', 7, 14) %>
+     <%= console %> 

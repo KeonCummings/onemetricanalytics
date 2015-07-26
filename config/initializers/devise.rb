@@ -21,9 +21,9 @@ Devise.setup do |config|
       }
     }
   config.omniauth :linkedin, LINKEDIN_KEY, LINKEDIN_SECRET,
-      :scope => 'r_basicprofile r_emailaddress r_network rw_company_admin', 
+      :scope => 'r_basicprofile r_emailaddress rw_company_admin', 
       :fields => ["id", "email-address", "first-name", "last-name", "headline", "industry", "picture-url", "public-profile-url", "location", "connections"]
-  config.omniauth :google_Oauth2, 'x', 'x',
+  config.omniauth :google_Oauth2, GOOGLE_KEY, GOOGLE_SECRET,
     {
       :name => "google",
       :scope => "email, profile, plus.me, http://gdata.youtube.com,analytics.readonly",

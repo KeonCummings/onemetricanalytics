@@ -1,0 +1,42 @@
+<script>
+  var g = new JustGage({
+    id: "week",
+    value: <%= score(params[:id], 'page_engaged_users', 7, 14) %>,
+    min: 0,
+    max: 120,
+    titleFontColor : 'black',
+    valueFontColor : '#EE7600',
+    levelColors : ['#CC3232', '#FFFF00', '#859C27', '#7FFF00'],
+    levelColorsGradient : false,
+    title: "Engagements ",
+    label: "Last 7 Days"
+  });
+</script>
+<script>
+  var g = new JustGage({
+    id: "month",
+    value: <%= score(params[:id], 'page_engaged_users', 30, 60) %>,
+    min: 0,
+    max: 120,
+    titleFontColor : 'black',
+    valueFontColor : '#EE7600',
+    levelColors : ['#CC3232', '#FFFF00', '#859C27', '#7FFF00'],
+    levelColorsGradient : false,
+    title: "Engagements ",
+    label: "Last Month"
+  });
+</script>
+<script>
+  var g = new JustGage({
+    id: "quarter",
+    value: <%= score(params[:id], 'page_engaged_users', 60, 120) %>,
+    min: 0,
+    max: 120,
+    titleFontColor : 'black',
+    valueFontColor : '#EE7600',
+    levelColors : ['#CC3232', '#FFFF00', '#859C27', '#7FFF00'],
+    levelColorsGradient : false,
+    title: "Engagements",
+    label: "Last Quarter"
+  });
+</script>
