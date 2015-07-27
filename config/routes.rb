@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'impressions/:id', to:  'facebook_insights#impressions', as: :impression
   get 'engagements/:id', to:  'facebook_insights#engagements', as: :engagement
+  get 'engagement_rates/:id', to:  'facebook_insights#engagement_rates', as: :engagement_rate
   get 'viral/:id', to:  'facebook_insights#viral', as: :viral
   get 'select', to: 'facebook_insights#pick_page'
   resources :facebook_insights

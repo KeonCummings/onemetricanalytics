@@ -11,6 +11,9 @@ class FacebookInsightsController < ApplicationController
 	def engagements
   	end
 
+  	def engagement_rates
+  	end
+
   	def viral
  	end
 end

@@ -80,12 +80,31 @@ class FacebookInsight < ActiveRecord::Base
     hash2.each {|k,v| results[k].push(v)}
     results
   end
+
+  def self.get_engagement_rates(combined_hash)
+    engagement_rates = Hash.new
+    combined_hash.each do |k,v| 
+      erPercent = v[0]/v[1].to_f * 100
+      erPercent = erPercent.round(2)
+      engagement_rates[k] = "#{erPercent}%"
+    end
+    engagement_rates
+  end
+
 end
 
-# m = Koala::Facebook::API.new(User.find(5).oauth_token)
-# m = m.get_connections('me', 'accounts')
-# m = m.first['access_token']
-# @post_graph = Koala::Facebook::API.new(m)
+u = UserAuthentication.where(user_id: 1).first.token
+m = Koala::Facebook::API.new(u)
+m = m.get_connections('me', 'accounts')
+m = m.first['access_token']
+@pageData = FacebookInsight.page_insights(m, "page_posts_impressions", "2015-07-01", "2015-07-28")
+@pageData2 = FacebookInsight.page_insights(m, "page_engaged_users", "2015-07-01", "2015-07-28")
+@engagements = FacebookInsight.get_values(@pageData2)
+@impressions = FacebookInsight.get_values(@pageData)
+@allData = FacebookInsight.combine_hash(@engagements, @impressions)
+@er = FacebookInsight.get_engagement_rates(@allData)
+
+# @page_graph = Koala::Facebook::API.new(m)
 # @feed = @post_graph.get_connection('me', 'feed')
 # @postid = @feed.first['id']
 # @x = @post_graph.get_connections(@postid, 'likes', since: "2015-05-17", until: "2015-07-17")

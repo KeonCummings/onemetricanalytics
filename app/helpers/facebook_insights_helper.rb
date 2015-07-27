@@ -20,6 +20,7 @@ module FacebookInsightsHelper
 		qoqComparison = q1_data_mean/q2_data_mean
 		@data_score = FacebookInsight.content_score(qoqComparison)
 	end
+	
 	def metrics_history(pageToken, metric, daysStart)
 		token = pageToken
 		q1Start = DateTime.now
