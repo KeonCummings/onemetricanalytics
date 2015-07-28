@@ -86,13 +86,45 @@ class FacebookInsight < ActiveRecord::Base
     combined_hash.each do |k,v| 
       erPercent = v[0]/v[1].to_f * 100
       erPercent = erPercent.round(2)
-      engagement_rates[k] = "#{erPercent}%"
+      # engagement_rates[k] = "#{erPercent}%"
     end
     engagement_rates
   end
-
 end
 
+
+  def engagement_rate_score(pageToken, metric1, metric2, daysStart, daysEnd)
+    #set page token for grabbing data
+    token = pageToken
+    #set the time frame and get the data for the comparison data
+    q1Start = DateTime.now
+    q1Start = q1Start.strftime('%F')
+    q1End = DateTime.now - daysStart
+    q1End = q1End.strftime('%F')
+    q1DataM1 = FacebookInsight.page_insights(token, metric1, q1End, q1Start)
+    q1DataM2 = FacebookInsight.page_insights(token, metric2, q1End, q1Start)
+    # q1_data_hash_m1 = FacebookInsight.get_values(q1DataM1)
+    # q1_data_hash_m2 = FacebookInsight.get_values(q1DataM2)
+    # combinedMain = FacebookInsight.combine_hash(q1_data_hash_m1, q1_data_hash_m2)
+    # mainHash = FacebookInsight.get_engagement_rates(combinedMain)
+    # q1_data_array = FacebookInsight.create_value_array(mainHash)
+    # q1_data_mean = FacebookInsight.mean(q1_data_array)
+    # q2Start = DateTime.now - daysEnd
+    # q2Start = q2Start.strftime('%F')
+    # q2End = DateTime.now - daysStart
+    # q2End = q2End.strftime('%F')
+    # q2DataM1 = FacebookInsight.page_insights(token, metric1, q2Start, q2End)
+    # q2DataM2 = FacebookInsight.page_insights(token, metric2, q2Start, q2End)
+    # q2_data_hash_m1 = FacebookInsight.get_values(q2DataM1)
+    # q2_data_hash_m2 = FacebookInsight.get_values(q2DataM2)
+    # combinedMain2 = FacebookInsight.combine_hash(q2_data_hash_m1, q2_data_hash_m2)
+    # mainHash2 = FacebookInsight.get_engagement_rates(combinedMain2)
+    # q2Array = FacebookInsight.create_value_array(mainHash2)
+    # q2_data_mean = FacebookInsight.mean(q2Array)
+    # qoqComparison = q1_data_mean/q2_data_mean
+    # data_score = FacebookInsight.content_score(qoqComparison)
+  end
+  
 u = UserAuthentication.where(user_id: 1).first.token
 m = Koala::Facebook::API.new(u)
 m = m.get_connections('me', 'accounts')

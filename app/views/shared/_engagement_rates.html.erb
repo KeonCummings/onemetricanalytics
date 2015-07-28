@@ -1,10 +1,8 @@
 <script>
   var g = new JustGage({
     id: "week",
-     <% @metrics = combine_hash(metrics_history(params[:id], 'page_posts_impressions', 14),
-                                 metrics_history(params[:id], 'page_engaged_users', 14)) %>
-     <% @metrics = FacebookInsight.get_engagement_rates(@metrics)%>
-    value: <%= score(@metrics) %>,
+    value: <%= engagement_rate_score(params[:id], 'page_posts_impressions', 
+                                                  'page_engaged_users', 7, 14) %>,
     min: 0,
     max: 120,
     titleFontColor : 'black',
