@@ -82,9 +82,9 @@ class FacebookInsight < ActiveRecord::Base
   end
 end
 
-# m = Koala::Facebook::API.new(User.find(5).oauth_token)
-# m = m.get_connections('me', 'accounts')
-# m = m.first['access_token']
+m = Koala::Facebook::API.new(User.find(5).oauth_token)
+m = m.get_connections('me', 'accounts')
+m = m.first['access_token']
 # @post_graph = Koala::Facebook::API.new(m)
 # @feed = @post_graph.get_connection('me', 'feed')
 # @postid = @feed.first['id']
