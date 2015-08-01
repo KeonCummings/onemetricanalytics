@@ -1,7 +1,8 @@
 <script>
   var g = new JustGage({
     id: "week",
-    value: <%= score(params[:id], 'page_posts_impressions', 7, 14) %>,
+    value: <%= engagement_rate_score(params[:id], 'page_posts_impressions', 
+                                                  'page_engaged_users', 7, 14) %>,
     min: 0,
     max: 120,
     titleFontColor : 'black',
