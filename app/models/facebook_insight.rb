@@ -55,7 +55,14 @@ class FacebookInsight < ActiveRecord::Base
   end
 
   def self.mean(array)
-	array.inject(0) { |sum, x| sum += x }.to_f / array.size.to_i
+  	array.inject(0) do |sum, x| 
+      x = x.to_f
+      if x.nan?
+        x = 0
+      end
+      @end_sum = sum += x .to_f 
+    end
+   @end_sum / array.size.to_i
   end
 
   def self.performance_score(page_token,metric,start_date,end_date)
@@ -86,10 +93,17 @@ class FacebookInsight < ActiveRecord::Base
     combined_hash.each do |k,v| 
       erPercent = v[0]/v[1].to_f * 100
       erPercent = erPercent.round(2)
-      # engagement_rates[k] = "#{erPercent}%"
+      engagement_rates[k] = erPercent
     end
-    engagement_rates
+    return engagement_rates
   end
+
+  def self.remove_from_array(numArray)
+    f = Float::INFINITY
+    numArray.reject! &:nan?
+    numArray = numArray - [f]
+  end
+
 end
 
   def engagement_rate_score(pageToken, metric1, metric2, daysStart, daysEnd)
@@ -102,26 +116,28 @@ end
     q1End = q1End.strftime('%F')
     q1DataM1 = FacebookInsight.page_insights(token, metric1, q1End, q1Start)
     q1DataM2 = FacebookInsight.page_insights(token, metric2, q1End, q1Start)
-    # q1_data_hash_m1 = FacebookInsight.get_values(q1DataM1)
-    # q1_data_hash_m2 = FacebookInsight.get_values(q1DataM2)
-    # combinedMain = FacebookInsight.combine_hash(q1_data_hash_m1, q1_data_hash_m2)
-    # mainHash = FacebookInsight.get_engagement_rates(combinedMain)
-    # q1_data_array = FacebookInsight.create_value_array(mainHash)
-    # q1_data_mean = FacebookInsight.mean(q1_data_array)
-    # q2Start = DateTime.now - daysEnd
-    # q2Start = q2Start.strftime('%F')
-    # q2End = DateTime.now - daysStart
-    # q2End = q2End.strftime('%F')
-    # q2DataM1 = FacebookInsight.page_insights(token, metric1, q2Start, q2End)
-    # q2DataM2 = FacebookInsight.page_insights(token, metric2, q2Start, q2End)
-    # q2_data_hash_m1 = FacebookInsight.get_values(q2DataM1)
-    # q2_data_hash_m2 = FacebookInsight.get_values(q2DataM2)
-    # combinedMain2 = FacebookInsight.combine_hash(q2_data_hash_m1, q2_data_hash_m2)
-    # mainHash2 = FacebookInsight.get_engagement_rates(combinedMain2)
-    # q2Array = FacebookInsight.create_value_array(mainHash2)
-    # q2_data_mean = FacebookInsight.mean(q2Array)
-    # qoqComparison = q1_data_mean/q2_data_mean
-    # data_score = FacebookInsight.content_score(qoqComparison)
+    q1_data_hash_m1 = FacebookInsight.get_values(q1DataM1)
+    q1_data_hash_m2 = FacebookInsight.get_values(q1DataM2)
+    combinedMain = FacebookInsight.combine_hash(q1_data_hash_m1, q1_data_hash_m2)
+    mainHash = FacebookInsight.get_engagement_rates(combinedMain)
+    @q1_data_array = FacebookInsight.create_value_array(mainHash)
+    @q1_data_array = FacebookInsight.remove_from_array(@q1_data_array)
+    @q1_data_mean = FacebookInsight.mean(@q1_data_array)
+    q2Start = DateTime.now - daysEnd
+    q2Start = q2Start.strftime('%F')
+    q2End = DateTime.now - daysStart
+    q2End = q2End.strftime('%F')
+    q2DataM1 = FacebookInsight.page_insights(token, metric1, q2End, q2Start)
+    q2DataM2 = FacebookInsight.page_insights(token, metric2, q2End, q2Start)
+    q2_data_hash_m1 = FacebookInsight.get_values(q2DataM1)
+    q2_data_hash_m2 = FacebookInsight.get_values(q2DataM2)
+    combinedMain2 = FacebookInsight.combine_hash(q2_data_hash_m1, q2_data_hash_m2)
+    mainHash2 = FacebookInsight.get_engagement_rates(combinedMain2)
+    @q2Array = FacebookInsight.create_value_array(mainHash2)
+    @q2Array = FacebookInsight.remove_from_array(@q2Array)
+    @q2_data_mean = FacebookInsight.mean(@q2Array)
+    qoqComparison = @q1_data_mean/@q2_data_mean
+    data_score = FacebookInsight.content_score(qoqComparison)
   end
   
 u = UserAuthentication.where(user_id: 1).first.token
@@ -134,6 +150,9 @@ m = m.first['access_token']
 @impressions = FacebookInsight.get_values(@pageData)
 @allData = FacebookInsight.combine_hash(@engagements, @impressions)
 @er = FacebookInsight.get_engagement_rates(@allData)
+@ers = engagement_rate_score(m, "page_engaged_users", "page_posts_impressions",   
+                             30, 60/80)
+# @erray = FacebookInsight.remove_from_array(@q1_data_array)
 
 # @page_graph = Koala::Facebook::API.new(m)
 # @feed = @post_graph.get_connection('me', 'feed')
