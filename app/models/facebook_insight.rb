@@ -140,18 +140,18 @@ end
     data_score = FacebookInsight.content_score(qoqComparison)
   end
   
-u = UserAuthentication.where(user_id: 1).first.token
-m = Koala::Facebook::API.new(u)
-m = m.get_connections('me', 'accounts')
-m = m.first['access_token']
-@pageData = FacebookInsight.page_insights(m, "page_posts_impressions", "2015-07-01", "2015-07-28")
-@pageData2 = FacebookInsight.page_insights(m, "page_engaged_users", "2015-07-01", "2015-07-28")
-@engagements = FacebookInsight.get_values(@pageData2)
-@impressions = FacebookInsight.get_values(@pageData)
-@allData = FacebookInsight.combine_hash(@engagements, @impressions)
-@er = FacebookInsight.get_engagement_rates(@allData)
-@ers = engagement_rate_score(m, "page_engaged_users", "page_posts_impressions",   
-                             30, 60/80)
+# u = UserAuthentication.where(user_id: 1).first.token
+# m = Koala::Facebook::API.new(u)
+# m = m.get_connections('me', 'accounts')
+# m = m.first['access_token']
+# @pageData = FacebookInsight.page_insights(m, "page_posts_impressions", "2015-07-01", "2015-07-28")
+# @pageData2 = FacebookInsight.page_insights(m, "page_engaged_users", "2015-07-01", "2015-07-28")
+# @engagements = FacebookInsight.get_values(@pageData2)
+# @impressions = FacebookInsight.get_values(@pageData)
+# @allData = FacebookInsight.combine_hash(@engagements, @impressions)
+# @er = FacebookInsight.get_engagement_rates(@allData)
+# @ers = engagement_rate_score(m, "page_engaged_users", "page_posts_impressions",   
+#                              30, 60)
 # @erray = FacebookInsight.remove_from_array(@q1_data_array)
 
 # @page_graph = Koala::Facebook::API.new(m)

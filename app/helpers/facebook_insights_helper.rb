@@ -66,6 +66,21 @@ module FacebookInsightsHelper
 		# q1_data_array = FacebookInsight.create_value_array(q1_data_hash)
 	end
 
+	def metrics_history_eur(pageToken, metric1, metric2, daysStart)
+		token = pageToken
+		q1Start = DateTime.now
+		q1Start = q1Start.strftime('%F')
+		q1End = DateTime.now - daysStart
+		q1End = q1End.strftime('%F')
+		q1Data = FacebookInsight.page_insights(token, metric1, q1End, q1Start)
+		q1Data2 = FacebookInsight.page_insights(token, metric2, q1End, q1Start)
+		q1_data_hash = FacebookInsight.get_values(q1Data)
+		q1_data_hash2 = FacebookInsight.get_values(q1Data2)
+		allData = FacebookInsight.combine_hash(q1_data_hash, q1_data_hash2)
+		er = FacebookInsight.get_engagement_rates(allData)
+		# q1_data_array = FacebookInsight.create_value_array(q1_data_hash)
+	end
+
 	def combine_hash(hash1, hash2)
 	    results = Hash.new
 	    hash1.each {|k,v| results[k] = [v]}
